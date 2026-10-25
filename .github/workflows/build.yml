@@ -1,1 +1,15 @@
-
+{
+"name": "Build Windows",
+"on": ["push", "workflow_dispatch"],
+"jobs": {"windows": {"runs-on": "windows-latest", "steps": [
+{"uses": "actions/checkout@v4"},
+{"uses": "actions/setup-node@v4", "with": {"node-version": 20}},
+{"uses": "dtolnay/rust-toolchain@stable"},
+{"uses": "Swatinem/rust-cache@v2", "with": {"workspaces": "src-tauri"}},
+{"name": "Download engine tools", "shell": "pwsh", "run": "$ErrorActionPreference = 'Stop'\nNew-Item -ItemType Directory -Force src-tauri/binaries | Out-Null\nInvoke-WebRequest 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe' -OutFile 'src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe'\nInvoke-WebRequest 'https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip' -OutFile 'ffmpeg.zip'\nExpand-Archive 'ffmpeg.zip' -DestinationPath 'ffmpeg-tmp'\nCopy-Item 'ffmpeg-tmp/*/bin/ffmpeg.exe' 'src-tauri/binaries/ffmpeg-x86_64-pc-windows-msvc.exe'\nInvoke-WebRequest 'https://github.com/denoland/deno/releases/latest/download/deno-x86_64-pc-windows-msvc.zip' -OutFile 'deno.zip'\nExpand-Archive 'deno.zip' -DestinationPath 'deno-tmp'\nCopy-Item 'deno-tmp/deno.exe' 'src-tauri/binaries/deno-x86_64-pc-windows-msvc.exe'\nGet-ChildItem src-tauri/binaries"},
+{"name": "Install JS dependencies", "run": "npm install"},
+{"name": "Generate icons", "run": "npx tauri icon app-icon.png"},
+{"name": "Build app", "run": "npx tauri build"},
+{"uses": "actions/upload-artifact@v4", "with": {"name": "Kemet-Download-Windows", "path": "src-tauri/target/release/bundle/nsis/*.exe"}}
+]}}
+}
