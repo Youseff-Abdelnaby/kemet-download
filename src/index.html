@@ -3,56 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kemet Download</title>
+<title>Kemet Download - كيميت داونلود</title>
 <style>
   :root{
-    --bg:#12100c; --panel:#1c1913; --line:#332d20; --text:#f3ecda; --muted:#a79d84;
+    --bg:#12100c; --panel:#1c1913; --line:#3f3522; --text:#f3ecda; --muted:#a79d84;
     --gold:#d9a93a; --gold2:#f0c75e; --ok:#58b368; --err:#e5645a;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:15px}
-  header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
-  header h1{margin:0;font-size:22px;color:var(--gold2);letter-spacing:.5px}
-  header span{color:var(--muted);font-size:13px}
+  header{padding:18px 24px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:14px;background:linear-gradient(180deg, #18140e, var(--panel))}
+  header img{filter: drop-shadow(0 2px 4px rgba(217,169,58,0.3));}
+  header h1{margin:0;font-size:24px;color:var(--gold2);letter-spacing:1px;font-family:Georgia, serif}
+  header span{color:var(--muted);font-size:13px;border-right:1px solid var(--line);padding-right:12px}
   main{max-width:960px;margin:0 auto;padding:20px 24px 60px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
-  textarea{width:100%;min-height:110px;resize:vertical;background:#0f0d0a;color:var(--text);border:1px dashed var(--line);border-radius:8px;padding:10px;font-family:Consolas,monospace;font-size:13px;direction:ltr;text-align:left}
-  textarea.drag{border-color:var(--gold);background:#1a160c}
-  .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;align-items:flex-end}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow: 0 4px 20px rgba(0,0,0,0.4)}
+  textarea{width:100%;min-height:110px;resize:vertical;background:#0f0d0a;color:var(--text);border:1px dashed var(--gold);border-radius:8px;padding:10px;font-family:Consolas,monospace;font-size:13px;direction:ltr;text-align:left}
+  textarea.drag{border-color:var(--gold2);background:#1a160c}
+  .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;align-items:flex-end}
   label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
-  select{background:#0f0d0a;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;min-width:120px}
+  select{background:#0f0d0a;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;min-width:120px;transition: all 0.3s ease}
+  select:focus{border-color:var(--gold);outline:none}
   label.chk{flex-direction:row;align-items:center;gap:6px;font-size:14px;color:var(--text);padding-bottom:8px}
-  button{background:var(--gold);color:#201807;border:0;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
-  button:hover{background:var(--gold2)}
+  button{background:linear-gradient(135deg, var(--gold), #b8862b);color:#12100c;border:0;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;box-shadow: 0 2px 6px rgba(0,0,0,0.3);transition: all 0.2s}
+  button:hover{background:var(--gold2);transform: translateY(-1px)}
   button.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:500}
-  button.ghost:hover{border-color:var(--gold)}
+  button.ghost:hover{border-color:var(--gold);background:rgba(217,169,58,0.05)}
   button.small{padding:5px 10px;font-size:12px}
   .item{border-top:1px solid var(--line);padding:12px 0}
   .item:first-child{border-top:0}
   .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
   .url{direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-  .bar{height:8px;background:#0f0d0a;border-radius:6px;overflow:hidden;margin:8px 0 4px}
-  .bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0}
+  .bar{height:8px;background:#0f0d0a;border-radius:6px;overflow:hidden;margin:8px 0 4px;border:1px solid var(--line)}
+  .bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;transition: width 0.2s}
   .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:10px}
   .meta .line{direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .st-done{color:var(--ok)} .st-error{color:var(--err)}
-  .empty{color:var(--muted);text-align:center;padding:18px}
-  .note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7}
-  #log{white-space:pre-wrap;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--muted);margin-top:10px}
+  .empty{color:var(--muted);text-align:center;padding:22px;font-style:italic}
+  .note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.7;border-right:3px solid var(--gold);padding-right:10px}
+  #log{white-space:pre-wrap;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--gold2);margin-top:10px}
   input[type=file]{display:none}
+  
+  /* إخفاء إعدادات الفيديو تلقائياً عند اختيار صوت فقط */
+  .audio-only-mode .video-exclusive {
+    opacity: 0.2;
+    pointer-events: none;
+    transform: scale(0.98);
+    transition: all 0.3s ease;
+  }
 </style>
 </head>
 <body>
 <header>
-  <img src="logo.png" alt="" style="width:44px;height:44px">
-  <h1>Kemet Download</h1>
-  <span>كيميت داونلود — بدون إعلانات</span>
+  <img src="app-icon.png" alt="Kemet Logo" style="width:48px;height:48px;border-radius:8px">
+  <div>
+    <h1>Kemet Download <span style="font-size: 11px; color: var(--gold); border: none; padding: 0;">YA Edition</span></h1>
+    <span>محمّل الوسائط الفرعوني الأسرع والأخف — بدون إعلانات</span>
+  </div>
 </header>
 
 <main>
-  <div class="card">
+  <div class="card" id="controlCard">
     <textarea id="urls" placeholder="الصق الروابط هنا (رابط في كل سطر)... أو اسحب ملف .txt وأفلته هنا"></textarea>
-    <div class="row">
+    <div class="row" id="optionsRow">
       <label>الجودة
         <select id="quality">
           <option value="best">أعلى جودة متاحة</option>
@@ -63,16 +75,16 @@
           <option value="720">720p</option>
           <option value="480">480p</option>
           <option value="360">360p</option>
-          <option value="audio">صوت فقط</option>
+          <option value="audio">🎵 صوت فقط (Audio Only)</option>
         </select>
       </label>
-      <label>الصيغة
+      <label class="video-exclusive">الصيغة
         <select id="container">
           <option value="mp4">MP4</option>
           <option value="mkv">MKV</option>
         </select>
       </label>
-      <label>الكودك
+      <label class="video-exclusive">الكودك
         <select id="codec">
           <option value="any">تلقائي</option>
           <option value="h264">H.264</option>
@@ -91,7 +103,7 @@
       </label>
       <label>كوكيز المتصفح
         <select id="cookies">
-          <option value="none">بدون</option>
+          <option value="none">بدون (عام)</option>
           <option value="chrome">Chrome</option>
           <option value="edge">Edge</option>
           <option value="firefox">Firefox</option>
@@ -104,21 +116,22 @@
       </label>
       <label class="chk"><input type="checkbox" id="playlist"> قائمة تشغيل كاملة</label>
     </div>
-    <div class="row">
-      <button id="start">ابدأ التحميل</button>
-      <button class="ghost" id="pickTxt">استيراد ملف .txt</button>
+    <div class="row" style="margin-top: 16px;">
+      <button id="start">⚡ ابدأ التحميل</button>
+      <button class="ghost" id="pickTxt">📁 استيراد ملف .txt</button>
       <input type="file" id="txtFile" accept=".txt,text/plain">
-      <button class="ghost" id="openFolder">فتح مجلد التحميلات</button>
-      <button class="ghost" id="update">تحديث محرك التحميل</button>
+      <button class="ghost" id="openFolder">📂 فتح مجلد التحميلات</button>
+      <button class="ghost" id="update">🔄 تحديث محرك التحميل</button>
     </div>
-    <div class="note">الملفات بتتحفظ في: التنزيلات ‹ Kemet Download. لو النت قطع التطبيق بيعيد المحاولة تلقائياً ويكمل من مكان ما وقف. "إيقاف مؤقت" بيحفظ الجزء المحمّل و"استئناف" يكمل منه.
-    لو الموقع محتاج تسجيل دخول (إنستجرام/فيسبوك الخاص) اختار المتصفح اللي أنت مسجّل فيه من "كوكيز المتصفح" (وأغلق المتصفح أثناء التحميل).</div>
+    <div class="note">
+      <b>ملاحظة النظام:</b> الملفات يتم حفظها تلقائياً في مجلد <code>التنزيلات ‹ Kemet Download</code>. إذا انقطع الاتصال بالإنترنت، يستأنف التحميل تلقائياً من حيث وقف.
+    </div>
     <div id="log"></div>
   </div>
 
   <div class="card">
     <div class="top" style="margin-bottom:6px">
-      <strong>قائمة التحميل</strong>
+      <strong>قائمة التحميل النشطة</strong>
       <span>
         <button class="ghost small" id="pauseAll">إيقاف الكل</button>
         <button class="ghost small" id="clearDone">مسح المنتهي</button>
@@ -138,7 +151,17 @@ let nextId = 1;
 let workers = 0;
 let renderQueued = false;
 
-const STATUS_AR = { waiting: "في الانتظار", downloading: "جاري التحميل", paused: "متوقف مؤقتاً", done: "تم", error: "فشل" };
+const STATUS_AR = { waiting: "في الانتظار", downloading: "جاري التحميل", paused: "متوقف مؤقتاً", done: "تم التحميل بنجاح", error: "فشل" };
+
+// تفاعل ذكي: إخفاء إعدادات الفيديو عند اختيار صوت فقط
+$("quality").onchange = (e) => {
+  const card = $("controlCard");
+  if (e.target.value === "audio") {
+    card.classList.add("audio-only-mode");
+  } else {
+    card.classList.remove("audio-only-mode");
+  }
+};
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -205,7 +228,7 @@ function render() {
 
 function draw() {
   const box = $("list");
-  if (!items.length) { box.innerHTML = '<div class="empty">لسه مفيش روابط. الصق رابط أو اسحب ملف .txt</div>'; return; }
+  if (!items.length) { box.innerHTML = '<div class="empty">لسه مفيش روابط في القائمة. الصق رابط أو اسحب ملف .txt هنا للبدء!</div>'; return; }
   box.innerHTML = items.map((it) => {
     const stClass = it.status === "done" ? "st-done" : it.status === "error" ? "st-error" : "";
     const pct = Math.max(0, Math.min(100, it.pct || 0));
@@ -263,7 +286,6 @@ $("update").onclick = async () => {
   catch (e) { $("log").textContent = String(e); }
 };
 
-// استيراد ملف txt (بالزر أو بالسحب والإفلات)
 async function importFile(file) {
   if (!file) return;
   const text = await file.text();
@@ -280,11 +302,9 @@ ta.addEventListener("drop", (e) => {
   if (f) importFile(f);
   else { const t = e.dataTransfer.getData("text"); if (t) ta.value += (ta.value ? "\n" : "") + t; }
 });
-// منع فتح الملف في النافذة لو اتفلت خارج الخانة
 window.addEventListener("dragover", (e) => e.preventDefault());
 window.addEventListener("drop", (e) => e.preventDefault());
 
-// اختصارات لوحة المفاتيح
 document.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.key === "Enter") $("start").click();
   if (e.ctrlKey && e.key.toLowerCase() === "o") { e.preventDefault(); $("openFolder").click(); }
