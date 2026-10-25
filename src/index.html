@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kemet Download</title>
+<style>
+  :root{
+    --bg:#12100c; --panel:#1c1913; --line:#332d20; --text:#f3ecda; --muted:#a79d84;
+    --gold:#d9a93a; --gold2:#f0c75e; --ok:#58b368; --err:#e5645a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:15px}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+  header h1{margin:0;font-size:22px;color:var(--gold2);letter-spacing:.5px}
+  header span{color:var(--muted);font-size:13px}
+  main{max-width:960px;margin:0 auto;padding:20px 24px 60px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+  textarea{width:100%;min-height:110px;resize:vertical;background:#0f0d0a;color:var(--text);border:1px dashed var(--line);border-radius:8px;padding:10px;font-family:Consolas,monospace;font-size:13px;direction:ltr;text-align:left}
+  textarea.drag{border-color:var(--gold);background:#1a160c}
+  .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;align-items:flex-end}
+  label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+  select{background:#0f0d0a;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;min-width:120px}
+  label.chk{flex-direction:row;align-items:center;gap:6px;font-size:14px;color:var(--text);padding-bottom:8px}
+  button{background:var(--gold);color:#201807;border:0;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
+  button:hover{background:var(--gold2)}
+  button.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:500}
+  button.ghost:hover{border-color:var(--gold)}
+  button.small{padding:5px 10px;font-size:12px}
+  .item{border-top:1px solid var(--line);padding:12px 0}
+  .item:first-child{border-top:0}
+  .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+  .url{direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .bar{height:8px;background:#0f0d0a;border-radius:6px;overflow:hidden;margin:8px 0 4px}
+  .bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0}
+  .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:10px}
+  .meta .line{direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .st-done{color:var(--ok)} .st-error{color:var(--err)}
+  .empty{color:var(--muted);text-align:center;padding:18px}
+  .note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7}
+  #log{white-space:pre-wrap;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--muted);margin-top:10px}
+  input[type=file]{display:none}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="" style="width:44px;height:44px">
+  <h1>Kemet Download</h1>
+  <span>كيميت داونلود — بدون إعلانات</span>
+</header>
+
+<main>
+  <div class="card">
+    <textarea id="urls" placeholder="الصق الروابط هنا (رابط في كل سطر)... أو اسحب ملف .txt وأفلته هنا"></textarea>
+    <div class="row">
+      <label>الجودة
+        <select id="quality">
+          <option value="best">أعلى جودة متاحة</option>
+          <option value="4320">8K (4320p)</option>
+          <option value="2160">4K (2160p)</option>
+          <option value="1440">1440p</option>
+          <option value="1080" selected>1080p</option>
+          <option value="720">720p</option>
+          <option value="480">480p</option>
+          <option value="360">360p</option>
+          <option value="audio">صوت فقط</option>
+        </select>
+      </label>
+      <label>الصيغة
+        <select id="container">
+          <option value="mp4">MP4</option>
+          <option value="mkv">MKV</option>
+        </select>
+      </label>
+      <label>الكودك
+        <select id="codec">
+          <option value="any">تلقائي</option>
+          <option value="h264">H.264</option>
+          <option value="h265">H.265 (HEVC)</option>
+          <option value="av1">AV1</option>
+        </select>
+      </label>
+      <label>صيغة الصوت
+        <select id="audioFormat">
+          <option value="best">أعلى جودة (أصلي)</option>
+          <option value="mp3">MP3</option>
+          <option value="m4a">M4A</option>
+          <option value="opus">Opus</option>
+          <option value="flac">FLAC</option>
+        </select>
+      </label>
+      <label>كوكيز المتصفح
+        <select id="cookies">
+          <option value="none">بدون</option>
+          <option value="chrome">Chrome</option>
+          <option value="edge">Edge</option>
+          <option value="firefox">Firefox</option>
+        </select>
+      </label>
+      <label>تحميلات متزامنة
+        <select id="parallel">
+          <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+      <label class="chk"><input type="checkbox" id="playlist"> قائمة تشغيل كاملة</label>
+    </div>
+    <div class="row">
+      <button id="start">ابدأ التحميل</button>
+      <button class="ghost" id="pickTxt">استيراد ملف .txt</button>
+      <input type="file" id="txtFile" accept=".txt,text/plain">
+      <button class="ghost" id="openFolder">فتح مجلد التحميلات</button>
+      <button class="ghost" id="update">تحديث محرك التحميل</button>
+    </div>
+    <div class="note">الملفات بتتحفظ في: التنزيلات ‹ Kemet Download. لو النت قطع التطبيق بيعيد المحاولة تلقائياً ويكمل من مكان ما وقف. "إيقاف مؤقت" بيحفظ الجزء المحمّل و"استئناف" يكمل منه.
+    لو الموقع محتاج تسجيل دخول (إنستجرام/فيسبوك الخاص) اختار المتصفح اللي أنت مسجّل فيه من "كوكيز المتصفح" (وأغلق المتصفح أثناء التحميل).</div>
+    <div id="log"></div>
+  </div>
+
+  <div class="card">
+    <div class="top" style="margin-bottom:6px">
+      <strong>قائمة التحميل</strong>
+      <span>
+        <button class="ghost small" id="pauseAll">إيقاف الكل</button>
+        <button class="ghost small" id="clearDone">مسح المنتهي</button>
+      </span>
+    </div>
+    <div id="list"></div>
+  </div>
+</main>
+
+<script>
+const { invoke } = window.__TAURI__.core;
+const { listen } = window.__TAURI__.event;
+
+const $ = (id) => document.getElementById(id);
+let items = [];
+let nextId = 1;
+let workers = 0;
+let renderQueued = false;
+
+const STATUS_AR = { waiting: "في الانتظار", downloading: "جاري التحميل", paused: "متوقف مؤقتاً", done: "تم", error: "فشل" };
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function addUrls(text) {
+  const found = text.match(/https?:\/\/[^\s"'<>]+/g) || [];
+  let added = 0;
+  for (const url of found) {
+    if (items.some((i) => i.url === url && i.status !== "done" && i.status !== "error")) continue;
+    items.push({ id: nextId++, url, status: "waiting", pct: 0, line: "", err: "" });
+    added++;
+  }
+  render();
+  return added;
+}
+
+function getOpts(url) {
+  return {
+    url,
+    quality: $("quality").value,
+    container: $("container").value,
+    codec: $("codec").value,
+    audioFormat: $("audioFormat").value,
+    cookies: $("cookies").value,
+    playlist: $("playlist").checked,
+  };
+}
+
+async function worker() {
+  workers++;
+  try {
+    while (true) {
+      const it = items.find((i) => i.status === "waiting");
+      if (!it) break;
+      it.status = "downloading";
+      it.err = "";
+      render();
+      try {
+        await invoke("download", { id: it.id, opts: getOpts(it.url) });
+        it.status = "done";
+        it.pct = 100;
+      } catch (e) {
+        if (String(e) === "paused") it.status = "paused";
+        else { it.status = "error"; it.err = String(e); }
+      }
+      render();
+    }
+  } finally {
+    workers--;
+  }
+}
+
+function startQueue() {
+  const n = parseInt($("parallel").value, 10) || 1;
+  while (workers < n && items.some((i) => i.status === "waiting")) worker();
+}
+
+function render() {
+  if (renderQueued) return;
+  renderQueued = true;
+  setTimeout(() => { renderQueued = false; draw(); }, 150);
+}
+
+function draw() {
+  const box = $("list");
+  if (!items.length) { box.innerHTML = '<div class="empty">لسه مفيش روابط. الصق رابط أو اسحب ملف .txt</div>'; return; }
+  box.innerHTML = items.map((it) => {
+    const stClass = it.status === "done" ? "st-done" : it.status === "error" ? "st-error" : "";
+    const pct = Math.max(0, Math.min(100, it.pct || 0));
+    let btns = "";
+    if (it.status === "downloading") btns += `<button class="ghost small" onclick="pauseItem(${it.id})">إيقاف مؤقت</button>`;
+    if (it.status === "paused" || it.status === "error") btns += `<button class="small" onclick="resumeItem(${it.id})">${it.status === "error" ? "إعادة المحاولة" : "استئناف"}</button>`;
+    btns += ` <button class="ghost small" onclick="removeItem(${it.id})">حذف</button>`;
+    const info = it.status === "error" ? esc(it.err) : esc(it.line || "");
+    return `<div class="item">
+      <div class="top"><div class="url">${esc(it.url)}</div><div>${btns}</div></div>
+      <div class="bar"><div style="width:${pct}%"></div></div>
+      <div class="meta"><span class="${stClass}">${STATUS_AR[it.status]} — ${pct.toFixed(1)}%</span><span class="line">${info}</span></div>
+    </div>`;
+  }).join("");
+}
+
+window.pauseItem = (id) => { invoke("pause", { id }); };
+window.resumeItem = (id) => {
+  const it = items.find((i) => i.id === id);
+  if (!it) return;
+  it.status = "waiting";
+  render();
+  startQueue();
+};
+window.removeItem = (id) => {
+  invoke("pause", { id });
+  items = items.filter((i) => i.id !== id);
+  render();
+};
+
+listen("progress", (e) => {
+  const p = e.payload;
+  const it = items.find((i) => i.id === p.id);
+  if (!it) return;
+  if (p.percent !== null && p.percent !== undefined) it.pct = p.percent;
+  it.line = p.line;
+  render();
+});
+
+$("start").onclick = () => {
+  const n = addUrls($("urls").value);
+  if (n) $("urls").value = "";
+  startQueue();
+};
+$("pauseAll").onclick = () => {
+  items.forEach((i) => { if (i.status === "waiting") i.status = "paused"; });
+  items.forEach((i) => { if (i.status === "downloading") invoke("pause", { id: i.id }); });
+  render();
+};
+$("clearDone").onclick = () => { items = items.filter((i) => i.status !== "done"); render(); };
+$("openFolder").onclick = () => invoke("open_folder").catch((e) => alert(e));
+$("update").onclick = async () => {
+  $("log").textContent = "جاري تحديث محرك التحميل...";
+  try { $("log").textContent = await invoke("update_engine"); }
+  catch (e) { $("log").textContent = String(e); }
+};
+
+// استيراد ملف txt (بالزر أو بالسحب والإفلات)
+async function importFile(file) {
+  if (!file) return;
+  const text = await file.text();
+  const n = addUrls(text);
+  $("log").textContent = `تمت إضافة ${n} رابط من الملف ${file.name}. اضغط "ابدأ التحميل".`;
+}
+$("pickTxt").onclick = () => $("txtFile").click();
+$("txtFile").onchange = (e) => { importFile(e.target.files[0]); e.target.value = ""; };
+const ta = $("urls");
+["dragenter", "dragover"].forEach((ev) => ta.addEventListener(ev, (e) => { e.preventDefault(); ta.classList.add("drag"); }));
+["dragleave", "drop"].forEach((ev) => ta.addEventListener(ev, (e) => { e.preventDefault(); ta.classList.remove("drag"); }));
+ta.addEventListener("drop", (e) => {
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) importFile(f);
+  else { const t = e.dataTransfer.getData("text"); if (t) ta.value += (ta.value ? "\n" : "") + t; }
+});
+// منع فتح الملف في النافذة لو اتفلت خارج الخانة
+window.addEventListener("dragover", (e) => e.preventDefault());
+window.addEventListener("drop", (e) => e.preventDefault());
+
+// اختصارات لوحة المفاتيح
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.key === "Enter") $("start").click();
+  if (e.ctrlKey && e.key.toLowerCase() === "o") { e.preventDefault(); $("openFolder").click(); }
+});
+
+draw();
+</script>
+</body>
+</html>
