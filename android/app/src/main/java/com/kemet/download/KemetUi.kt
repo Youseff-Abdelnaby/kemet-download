@@ -90,7 +90,7 @@ fun KemetApp() {
                     item {
                         Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                             Image(
-                                painterResource(R.drawable.ic_launcher), null,
+                                painterResource(R.drawable.kemet_logo), null,
                                 Modifier.size(48.dp).clip(RoundedCornerShape(10.dp))
                             )
                             Column(Modifier.padding(start = 12.dp)) {
