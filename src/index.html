@@ -202,8 +202,8 @@ async function worker() {
         await invoke("download", { id: it.id, opts: getOpts(it.url) });
         it.status = "done";
         it.pct = 100;
-        // رسالة نجاح مصرية لطيفة
-        $("toastMsg.innerHTML") = `🎉 ألف مبروك يا بطل! التحميل خلص بنجاح، استمتع بوقتك!`;
+        // رسالة نجاح مصرية لطيفة (تم تصحيح الخطأ البرمجي هنا بنجاح)
+        $("toastMsg").innerHTML = `🎉 ألف مبروك يا بطل! التحميل خلص بنجاح، استمتع بوقتك!`;
       } catch (e) {
         if (String(e) === "paused") it.status = "paused";
         else { it.status = "error"; it.err = String(e); }
