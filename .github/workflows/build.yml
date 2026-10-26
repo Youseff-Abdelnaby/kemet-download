@@ -77,6 +77,11 @@ jobs:
 
       - uses: softprops/action-gh-release@v2
         with:
+          name: Kemet Download ${{ github.ref_name }}
+          body: |
+            Kemet Download is proprietary, closed-source software. All rights reserved. See the LICENSE file.
+          generate_release_notes: true
+          fail_on_unmatched_files: true
           files: |
             artifacts/**/*.exe
             artifacts/**/*.apk
