@@ -1,100 +1,64 @@
-<div align="center">
+<p align="center">
+  <img src="app-icon.png" width="120" alt="Kemet Download Logo">
+</p>
 
-<img src="src/logo.png" alt="Kemet Download logo" width="160">
+<h1 align="center">Kemet Download</h1>
 
-# Kemet Download
+<p align="center">
+  <b>المنظومة الاحترافية المتكاملة لمدير التحميلات والوسائط للكمبيوتر والأندرويد</b>
+</p>
 
-**Free, open-source, ad-free media downloader — fast, light, built with Rust + Tauri.**
+<p align="center">
+  <a href="#english">English</a> • <a href="#arabic">العربية</a>
+</p>
 
-[![Downloads](https://img.shields.io/github/downloads/Youseff-Abdelnaby/kemet-download/total?label=downloads&color=d9a93a)](https://github.com/Youseff-Abdelnaby/kemet-download/releases)
-[![Latest release](https://img.shields.io/github/v/release/Youseff-Abdelnaby/kemet-download?color=2f6fd6)](https://github.com/Youseff-Abdelnaby/kemet-download/releases/latest)
-[![License: MIT](https://img.shields.io/github/license/Youseff-Abdelnaby/kemet-download?color=58b368)](LICENSE)
-[![Build](https://github.com/Youseff-Abdelnaby/kemet-download/actions/workflows/build.yml/badge.svg)](https://github.com/Youseff-Abdelnaby/kemet-download/actions)
-[![Stars](https://img.shields.io/github/stars/Youseff-Abdelnaby/kemet-download?style=flat&color=d9a93a)](https://github.com/Youseff-Abdelnaby/kemet-download/stargazers)
+---
 
-[**⬇ Download for Windows**](https://github.com/Youseff-Abdelnaby/kemet-download/releases/latest) · [Report a bug](https://github.com/Youseff-Abdelnaby/kemet-download/issues) · [Contribute](CONTRIBUTING.md)
+<div id="english">
+
+## 🚀 About Kemet Download
+**Kemet Download** is an advanced, high-performance cross-platform download manager built natively for **Windows** (via Tauri & Rust) and **Android** (via Kotlin & Jetpack Compose). Designed with supreme speed, zero bloat, and complete privacy in mind, it handles everything from high-resolution media to digital assets, clothing stores content, games, and file management seamlessly.
+
+### ✨ Core Features
+- **Universal Downloader Hub:** Seamlessly queue and download direct files, videos, software, games, and rich digital catalog assets.
+- **Smart Queue & Batch Processing:** Paste single links, entire lists, or drop a `.txt` file full of links into an organized, automated queue.
+- **Ultra HD & Audio Mastery:** Download resolutions from 360p up to 4K / 8K, or extract pure audio formats (MP3, M4A, Opus, FLAC).
+- **Format & Codec Customization:** Choose between MP4 or MKV with advanced H.264, H.265 (HEVC), or AV1 codec preferences, with automatic audio/video merging.
+- **Robust Network Resilience:** Multi-threaded simultaneous downloads, pause/resume capabilities, and automatic recovery if your connection drops.
+- **Cross-Platform Powerhouse:** Fully optimized native builds for **Windows (.exe)** and **Android (.apk)**.
+- **Privacy First:** No ads, no tracking, no forced accounts. Your data and downloads stay strictly yours.
+
+### 📥 Download & Installation
+Get the latest stable releases directly from the **[Releases](../../releases)** page:
+- **Windows:** Download `kemet-windows-setup.exe` and run it. *(Note: Windows SmartScreen might prompt a security warning because the app is self-signed; click **More info** -> **Run anyway**).*
+- **Android:** Download `kemet-android-apk.apk` and install it on your device.
 
 </div>
 
 ---
 
-## English
+<div id="arabic">
 
-### Features
+## 🚀 عن تطبيق كيميت داونلود (Kemet Download)
+**كيميت داونلود** هو التطبيق الاحترافي المتطور والأسرع لمدير التحميلات وإدارة المحتوى متعدد المنصات، مصمم خصيصاً ليعمل بكفاءة خارقة على أنظمة **ويندوز** (باستخدام Tauri وRust) و**أندرويد** (باستخدام Kotlin وJetpack Compose). يتيح لك التطبيق تحميل وإدارة كافة أنواع الملفات بدقة وسرعة مذهلة، تشمل الوسائط، الألعاب، التطبيقات، ومحتويات المتاجر الرقمية والملابس بكل سلاسة.
 
-- Paste one link or a whole list, or drop a `.txt` file full of links — everything goes into a tidy queue.
-- Quality from 360p up to 4K / 8K (when the source offers it), or audio only (MP3, M4A, Opus, FLAC, best original).
-- Choose **MP4 or MKV** and prefer **H.264, H.265 or AV1**. Audio and video are merged automatically.
-- Several downloads at once, **pause / resume**, and automatic retry if your connection drops.
-- Uses browser cookies for sites that need a login.
-- Powered by [yt-dlp](https://github.com/yt-dlp/yt-dlp) (thousands of supported sites), [FFmpeg](https://ffmpeg.org) and [Deno](https://deno.com). One button updates the engine.
-- No ads. No tracking. No account.
+### ✨ المميزات والخصائص الفريدة
+- **مركز التحميلات الشامل:** واجهة واحدة ذكية لإدارة وتحميل الملفات المباشرة، مقاطع الفيديو، البرامج، الألعاب، والمستندات بorganized queue مذهل.
+- **التعامل مع الروابط بالجملة:** الصق رابطاً واحداً، أو قائمة روابط، أو اسحب ملف نصي `.txt` مليء بالروابط لتبدأ التحميلات تلقائياً.
+- **جودات خارقة وصوتيات نقية:** دعم كامل للجودات من 360p وحتى 4K و8K، مع إمكانية استخراج الصوت الصافي بأعلى نقاء (MP3, M4A, Opus, FLAC).
+- **التحكم بالصيغ والكودكات:** اختيار صيغ MP4 أو MKV وتفضيل كودكات التشغيل المتقدمة مثل H.264 وH.265 وAV1، مع الدمج التلقائي للصوت والصورة.
+- **استقرار تام للشبكة:** تحميلات متزامنة متعددة، خاصية الإيقاف المؤقت والاستئناف، وإعادة المحاولة التلقائية عند انقطاع الإنترنت.
+- **حماية تامة وخصوصية مطلقة:** التطبيق يخلو تماماً من الإعلانات، بدون تتبع، وبدون الحاجة لإنشاء حسابات شخصية.
 
-### Roadmap
+### 📥 التحميل والتثبيت
+يمكنك تحميل أحدث الإصدارات الجاهزة مباشرة من صفحة **[الإصدارات (Releases)](../../releases)**:
+- **نسخة الويندوز:** حمّل ملف الـ `.exe` وثبته فوراً على جهازك. (لو ظهر تحذير SmartScreen اضغط على **More info** ثم **Run anyway** لأن التطبيق مخصص ومحمي ملكياً).
+- **نسخة الأندرويد:** حمّل ملف الـ `.apk` وثبته على هاتفك الاستمتاع بتجربة أندرويد فريدة ومستقلة.
 
-- [x] Windows app
-- [ ] Android app (same design, separate build — coming next)
-- [ ] Folders & playlists organisation, hotkeys, auto-update
-
-### Install
-
-Download the latest `.exe` installer from the [Releases page](https://github.com/Youseff-Abdelnaby/kemet-download/releases/latest) and run it.
-Windows may show a SmartScreen warning because the app is not code-signed: click **More info → Run anyway**.
-
-### Responsible use
-
-Kemet Download is a tool. Only download content you own, that is in the public domain, or that you have permission to save, and respect the terms of the sites you use and the laws of your country. DRM-protected content is not supported.
-
-### Build it yourself
-
-Pushing to this repo builds the installer automatically with GitHub Actions (see `.github/workflows/build.yml`). To build locally you need Rust, Node.js and the Tauri prerequisites, then run `npx tauri build`.
-
-### Contributing
-
-Anyone can fork, change and improve this project. See [CONTRIBUTING.md](CONTRIBUTING.md). Stars ⭐ and shares help a lot.
-
-### License & credits
-
-Kemet Download's own code is released under the [MIT License](LICENSE).
-It bundles third-party tools that keep their own licenses: yt-dlp (Unlicense), FFmpeg (GPL build), Deno (MIT), Tauri (MIT / Apache-2.0).
+</div>
 
 ---
 
-<div dir="rtl">
-
-## بالعربي
-
-**كيميت داونلود** تطبيق تحميل **مجاني ومفتوح المصدر وبدون إعلانات**، خفيف وسريع، مبني بـ Rust وTauri.
-
-### المميزات
-
-- الصق رابط أو عدة روابط، أو اسحب ملف `.txt` فيه روابط، وكلها تدخل في قائمة منظمة.
-- جودات من 360p لحد 4K و8K (لو المصدر بيوفرها)، أو صوت فقط (MP3 وM4A وOpus وFLAC).
-- اختيار **MP4 أو MKV** وأفضلية كودك **H.264 أو H.265 أو AV1**، مع دمج الصوت والفيديو تلقائياً.
-- تحميلات متزامنة، **إيقاف مؤقت واستئناف**، وإعادة محاولة تلقائية لو النت قطع.
-- دعم كوكيز المتصفح للمواقع اللي محتاجة تسجيل دخول.
-- المحرك: yt-dlp وFFmpeg وDeno، وزرار واحد لتحديثه.
-- بدون إعلانات، بدون تتبع، بدون حساب.
-
-### قريباً
-
-- نسخة **أندرويد** بنفس التصميم (بناء منفصل).
-- تنظيم الملفات في فولدرات وقوائم، اختصارات لوحة المفاتيح، تحديث تلقائي.
-
-### التثبيت
-
-نزّل ملف الـ `.exe` من [صفحة الإصدارات](https://github.com/Youseff-Abdelnaby/kemet-download/releases/latest) وشغّله. لو ظهر تحذير SmartScreen اضغط **More info ثم Run anyway** لأن التطبيق غير موقّع رقمياً.
-
-### الاستخدام المسؤول
-
-التطبيق مجرد أداة. حمّل فقط المحتوى اللي تملكه أو المتاح للعامة أو اللي عندك إذن بحفظه، والتزم بشروط المواقع وقوانين بلدك. المحتوى المحمي بـ DRM غير مدعوم.
-
-### المساهمة
-
-أي حد يقدر يعمل Fork ويعدّل ويحسّن المشروع. التفاصيل في [CONTRIBUTING.md](CONTRIBUTING.md). النجمة ⭐ والمشاركة بيفرقوا جداً.
-
-### الترخيص
-
-كود التطبيق نفسه تحت رخصة [MIT](LICENSE) (مفتوح للجميع). الأدوات الخارجية المضمنة (yt-dlp وFFmpeg وDeno وTauri) لها تراخيصها الخاصة.
-
-</div>
+<p align="center">
+  <b>© Kemet Download — Protected Intellectual Property. All rights reserved.</b>
+</p>
