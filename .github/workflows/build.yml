@@ -29,7 +29,7 @@ jobs:
         shell: pwsh
         run: |
           if (-not (Test-Path src-tauri/icons/icon.ico)) {
-            npx --yes @tauri-apps/cli@2 icon src/app-icon.png
+            npx --yes @tauri-apps/cli@2 icon app-icon.png
           }
 
       - name: Build Windows installer (NSIS)
