@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kemet Download - كيميت داونلود</title>
+<title>Kemet Download - كيميت داونلود (YA Edition)</title>
 <style>
   :root{
     --bg:#12100c; --panel:#1c1913; --line:#3f3522; --text:#f3ecda; --muted:#a79d84;
@@ -33,8 +33,8 @@
   .item:first-child{border-top:0}
   .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
   .url{direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-  .bar{height:8px;background:#0f0d0a;border-radius:6px;overflow:hidden;margin:8px 0 4px;border:1px solid var(--line)}
-  .bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;transition: width 0.2s}
+  .bar{height:10px;background:#0f0d0a;border-radius:6px;overflow:hidden;margin:8px 0 4px;border:1px solid var(--line)}
+  .bar>div{height:100%;background:linear-gradient(90deg,#d9a93a,#f0c75e,#fff);box-shadow: 0 0 10px rgba(240,199,94,0.6);width:0;transition: width 0.2s}
   .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:10px}
   .meta .line{direction:ltr;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .st-done{color:var(--ok)} .st-error{color:var(--err)}
@@ -43,12 +43,23 @@
   #log{white-space:pre-wrap;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:12px;color:var(--gold2);margin-top:10px}
   input[type=file]{display:none}
   
-  /* إخفاء إعدادات الفيديو تلقائياً عند اختيار صوت فقط */
+  /* تبهيت ونعومة عند اختيار صوت فقط أو عدم الحاجة لإعدادات الفيديو */
   .audio-only-mode .video-exclusive {
-    opacity: 0.2;
+    opacity: 0.15;
     pointer-events: none;
-    transform: scale(0.98);
-    transition: all 0.3s ease;
+    transform: scale(0.97);
+    filter: blur(1px);
+    transition: all 0.4s ease;
+  }
+  .welcome-toast {
+    background: linear-gradient(135deg, #1c1913, #2b2315);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 </style>
 </head>
@@ -57,28 +68,27 @@
   <img src="app-icon.png" alt="Kemet Logo" style="width:48px;height:48px;border-radius:8px">
   <div>
     <h1>Kemet Download <span style="font-size: 11px; color: var(--gold); border: none; padding: 0;">YA Edition</span></h1>
-    <span>محمّل الوسائط الفرعوني الأسرع والأخف — بدون إعلانات</span>
+    <span>محمّل الوسائط الشامل والفرعوني (ألعاب، برامج، ملفات، فيديوهات) — بدون إعلانات</span>
   </div>
 </header>
 
 <main>
+  <div class="welcome-toast" id="toastMsg">
+    ✨ بسم الله توكلنا على الله.. استعنا على الشقى بالله يا جو يا بطل! جاهز للتحميل بأقصى سرعة.
+  </div>
+
   <div class="card" id="controlCard">
-    <textarea id="urls" placeholder="الصق الروابط هنا (رابط في كل سطر)... أو اسحب ملف .txt وأفلته هنا"></textarea>
+    <textarea id="urls" placeholder="الصق الروابط هنا (رابط في كل سطر)... أو اسحب ملف .txt وأفلته هنا للتحميل الجماعي"></textarea>
     <div class="row" id="optionsRow">
-      <label>الجودة
+      <label>نوع الملف / الجودة
         <select id="quality">
-          <option value="best">أعلى جودة متاحة</option>
-          <option value="4320">8K (4320p)</option>
-          <option value="2160">4K (2160p)</option>
-          <option value="1440">1440p</option>
-          <option value="1080" selected>1080p</option>
-          <option value="720">720p</option>
-          <option value="480">480p</option>
-          <option value="360">360p</option>
+          <option value="best">تلقائي شامل (ألعاب، ملفات، صور، فيديو)</option>
+          <option value="1080" selected>فيديو 1080p</option>
+          <option value="720">فيديو 720p</option>
           <option value="audio">🎵 صوت فقط (Audio Only)</option>
         </select>
       </label>
-      <label class="video-exclusive">الصيغة
+      <label class="video-exclusive">صيغة الفيديو
         <select id="container">
           <option value="mp4">MP4</option>
           <option value="mkv">MKV</option>
@@ -89,32 +99,21 @@
           <option value="any">تلقائي</option>
           <option value="h264">H.264</option>
           <option value="h265">H.265 (HEVC)</option>
-          <option value="av1">AV1</option>
         </select>
       </label>
-      <label>صيغة الصوت
+      <label>صيغة الصوت / الملف
         <select id="audioFormat">
           <option value="best">أعلى جودة (أصلي)</option>
           <option value="mp3">MP3</option>
-          <option value="m4a">M4A</option>
-          <option value="opus">Opus</option>
-          <option value="flac">FLAC</option>
-        </select>
-      </label>
-      <label>كوكيز المتصفح
-        <select id="cookies">
-          <option value="none">بدون (عام)</option>
-          <option value="chrome">Chrome</option>
-          <option value="edge">Edge</option>
-          <option value="firefox">Firefox</option>
+          <option value="zip">ملف مضغوط / لعبة (ZIP/RAR)</option>
         </select>
       </label>
       <label>تحميلات متزامنة
         <select id="parallel">
-          <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+          <option>1</option><option>2</option><option>5</option><option selected>10</option>
         </select>
       </label>
-      <label class="chk"><input type="checkbox" id="playlist"> قائمة تشغيل كاملة</label>
+      <label class="chk"><input type="checkbox" id="playlist"> قائمة تشغيل / روابط متعددة</label>
     </div>
     <div class="row" style="margin-top: 16px;">
       <button id="start">⚡ ابدأ التحميل</button>
@@ -124,14 +123,14 @@
       <button class="ghost" id="update">🔄 تحديث محرك التحميل</button>
     </div>
     <div class="note">
-      <b>ملاحظة النظام:</b> الملفات يتم حفظها تلقائياً في مجلد <code>التنزيلات ‹ Kemet Download</code>. إذا انقطع الاتصال بالإنترنت، يستأنف التحميل تلقائياً من حيث وقف.
+      <b>نظام كيميت الذكي:</b> البرنامج يتعرف تلقائياً على الروابط سواء كانت ملفات عادية، ألعاب ضخمة، صور، أو فيديوهات ويحفظها في مجلد <code>التنزيلات ‹ Kemet Download</code> مع إمكانية الاستئناف التلقائي عند انقطاع الإنترنت.
     </div>
     <div id="log"></div>
   </div>
 
   <div class="card">
     <div class="top" style="margin-bottom:6px">
-      <strong>قائمة التحميل النشطة</strong>
+      <strong>قائمة التحميل النشطة (سرعة + حجم + الوقت الإجمالي)</strong>
       <span>
         <button class="ghost small" id="pauseAll">إيقاف الكل</button>
         <button class="ghost small" id="clearDone">مسح المنتهي</button>
@@ -151,9 +150,9 @@ let nextId = 1;
 let workers = 0;
 let renderQueued = false;
 
-const STATUS_AR = { waiting: "في الانتظار", downloading: "جاري التحميل", paused: "متوقف مؤقتاً", done: "تم التحميل بنجاح", error: "فشل" };
+const STATUS_AR = { waiting: "في الانتظار", downloading: "جاري التحميل", paused: "متوقف مؤقتاً", done: "تم التحميل بنجاح 🏆", error: "فشل" };
 
-// تفاعل ذكي: إخفاء إعدادات الفيديو عند اختيار صوت فقط
+// تفاعل ذكي: تبهت إعدادات الفيديو بانيميشن ناعم عند اختيار صوت أو ملفات غير فيديو
 $("quality").onchange = (e) => {
   const card = $("controlCard");
   if (e.target.value === "audio") {
@@ -186,7 +185,6 @@ function getOpts(url) {
     container: $("container").value,
     codec: $("codec").value,
     audioFormat: $("audioFormat").value,
-    cookies: $("cookies").value,
     playlist: $("playlist").checked,
   };
 }
@@ -204,6 +202,8 @@ async function worker() {
         await invoke("download", { id: it.id, opts: getOpts(it.url) });
         it.status = "done";
         it.pct = 100;
+        // رسالة نجاح مصرية لطيفة
+        $("toastMsg.innerHTML") = `🎉 ألف مبروك يا بطل! التحميل خلص بنجاح، استمتع بوقتك!`;
       } catch (e) {
         if (String(e) === "paused") it.status = "paused";
         else { it.status = "error"; it.err = String(e); }
@@ -216,7 +216,7 @@ async function worker() {
 }
 
 function startQueue() {
-  const n = parseInt($("parallel").value, 10) || 1;
+  const n = parseInt($("parallel").value, 10) || 10;
   while (workers < n && items.some((i) => i.status === "waiting")) worker();
 }
 
@@ -228,7 +228,7 @@ function render() {
 
 function draw() {
   const box = $("list");
-  if (!items.length) { box.innerHTML = '<div class="empty">لسه مفيش روابط في القائمة. الصق رابط أو اسحب ملف .txt هنا للبدء!</div>'; return; }
+  if (!items.length) { box.innerHTML = '<div class="empty">لسه مفيش روابط في القائمة. الصق روابطك هنا أو اسحب ملف .txt للبدء!</div>'; return; }
   box.innerHTML = items.map((it) => {
     const stClass = it.status === "done" ? "st-done" : it.status === "error" ? "st-error" : "";
     const pct = Math.max(0, Math.min(100, it.pct || 0));
@@ -236,7 +236,7 @@ function draw() {
     if (it.status === "downloading") btns += `<button class="ghost small" onclick="pauseItem(${it.id})">إيقاف مؤقت</button>`;
     if (it.status === "paused" || it.status === "error") btns += `<button class="small" onclick="resumeItem(${it.id})">${it.status === "error" ? "إعادة المحاولة" : "استئناف"}</button>`;
     btns += ` <button class="ghost small" onclick="removeItem(${it.id})">حذف</button>`;
-    const info = it.status === "error" ? esc(it.err) : esc(it.line || "");
+    const info = it.status === "error" ? esc(it.err) : esc(it.line || "جاري قياس السرعة والمساحة...");
     return `<div class="item">
       <div class="top"><div class="url">${esc(it.url)}</div><div>${btns}</div></div>
       <div class="bar"><div style="width:${pct}%"></div></div>
@@ -281,7 +281,7 @@ $("pauseAll").onclick = () => {
 $("clearDone").onclick = () => { items = items.filter((i) => i.status !== "done"); render(); };
 $("openFolder").onclick = () => invoke("open_folder").catch((e) => alert(e));
 $("update").onclick = async () => {
-  $("log").textContent = "جاري تحديث محرك التحميل...";
+  $("log").textContent = "جاري تحديث محرك التحميل الذكي...";
   try { $("log").textContent = await invoke("update_engine"); }
   catch (e) { $("log").textContent = String(e); }
 };
